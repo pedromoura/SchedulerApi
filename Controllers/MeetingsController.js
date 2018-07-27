@@ -2,7 +2,7 @@ const moment = require('moment');
 const Meeting = require('../Models/Meeting');
 
 exports.get_all_meetings = (req, res) => {
-    Meeting.find({}).then(meetings => {
+    Meeting.find({}).sort({ "start_date": 1 }).then(meetings => {
         res.status(200).json(meetings);
     }).catch(err => {
         console.log(err);
@@ -19,7 +19,7 @@ exports.get_all_meetings_btw_date = (req, res) => {
         end_date: {
             $lte: moment(end_date).toDate()
         }
-    }).then(meetings => {
+    }).sort({ "start_date": 1 }).then(meetings => {
         res.status(200).json(meetings);
     }).catch(err => {
         console.log(err);
